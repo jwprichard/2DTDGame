@@ -6,7 +6,8 @@ public class GameManager : MonoBehaviour
 {
 
     public MapManager mapManager;
-    [SerializeField]
+    public BuildingManager buildingManager;
+    public EnemyManager enemyManager;
     public int[] size;
 
     // Called on the first frame of the game
@@ -29,6 +30,10 @@ public class GameManager : MonoBehaviour
                 Destroy(child.gameObject);
             }
             Initialize();
+        }
+        if (GUI.Button(new(10, 120, 100, 100), "Spawn Enemy"))
+        {
+            enemyManager.CreateEnemy();
         }
     }
 }

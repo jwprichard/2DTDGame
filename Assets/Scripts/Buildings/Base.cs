@@ -5,5 +5,5 @@ using Assets.Scripts.Interfaces;
 
 public class Base : MonoBehaviour, IBuilding
 {
-    int IBuilding.health { get; set; }
+    int IBuilding.Health { get; set; }
 }

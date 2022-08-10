@@ -6,7 +6,7 @@ namespace Assets.Scripts.Interfaces
 {
     internal interface IBuilding
     {
-        public int health { get; set; }
+        public int Health { get; set; }
 
     }
 }
