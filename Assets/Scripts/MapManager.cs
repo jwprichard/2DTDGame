@@ -13,9 +13,9 @@ public class MapManager : MonoBehaviour
         {
             for(int j = 0; j < mapArray.GetLength(1); j++)
             {
-                GameObject go = new();
-                go.AddComponent<Tile>().CreateTile(new(i,j));
-                mapArray[i,j] = go;
+                GameObject tile = new();
+                tile.AddComponent<Tile>().CreateTile(new(i,j));
+                mapArray[i,j] = tile;
             }
         }
     }

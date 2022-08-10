@@ -17,4 +17,12 @@ public class GameManager : MonoBehaviour
     {
         mapManager.InitializeMap(10, 10);
     }
+
+    private void OnGUI()
+    {
+        if (GUI.Button(new(10, 10, 150, 150), "Button"))
+        {
+            print("Yeah");
+        }
+    }
 }
