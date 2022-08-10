@@ -12,8 +12,15 @@ public class Tile : MonoBehaviour
         gameObject.name = name.ToLower();
         Position = position;
         gameObject.transform.position = position;
+        CreateSR();
+        gameObject.AddComponent<BoxCollider2D>();
+    }
+
+    public void CreateSR()
+    {
+        SpriteRenderer spriteR = gameObject.AddComponent<SpriteRenderer>();
         sprite = Resources.Load<Sprite>("Sprites/BasicGround");
-        gameObject.AddComponent<SpriteRenderer>().sprite = sprite;
-        gameObject.AddComponent<BoxCollider>();
+        spriteR.sprite = sprite;
+        spriteR.sortingLayerName = "Background";
     }
 }

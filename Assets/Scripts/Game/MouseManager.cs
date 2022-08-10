@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MouseManager : MonoBehaviour
 {
+    public BuildingManager buildingM;
+
     void Update()
     {
         CheckClick();
@@ -11,16 +13,15 @@ public class MouseManager : MonoBehaviour
 
     private void CheckClick()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Vector3 pos = Input.mousePosition;
-
         if (Input.GetMouseButtonDown(0))
         {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Vector3 dir = new(0, 0, 11);
-            Debug.DrawRay(ray.origin, dir, Color.red, 10f);
-            if (Physics.Raycast(ray.origin, dir, out RaycastHit hit))
+            //Debug.DrawRay(ray.origin, dir, Color.red, 10f);
+            RaycastHit2D hitInfo = (Physics2D.Raycast(ray.origin, dir));
+            if (hitInfo.collider != null)
             {
-                Debug.Log(hit.transform.name);
+                buildingM.RegisterClick(hitInfo.collider.transform);
             }
 
         }

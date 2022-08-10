@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     private void OnGUI()
     {
-        if (GUI.Button(new(10, 10, 150, 150), "Button"))
+        if (GUI.Button(new(10, 10, 100, 100), "Create Map"))
         {
             foreach (Transform child in mapManager.transform)
             {
