@@ -13,7 +13,7 @@ public class Tile : MonoBehaviour
         Position = position;
         gameObject.transform.position = position;
         CreateSR();
-        gameObject.AddComponent<BoxCollider2D>();
+        gameObject.AddComponent<BoxCollider2D>();//.isTrigger = true;
     }
 
     public void CreateSR()

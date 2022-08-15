@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 7376118220749220575}
   - component: {fileID: 7376118220749220573}
   - component: {fileID: 7407944517660293016}
-  m_Layer: 0
-  m_Name: Base
-  m_TagString: Untagged
+  - component: {fileID: 1638586211329720104}
+  m_Layer: 6
+  m_Name: Building
+  m_TagString: Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +96,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -111,3 +112,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1638586211329720104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7376118220749220572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508d232f34de4854a8d98c116949d216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

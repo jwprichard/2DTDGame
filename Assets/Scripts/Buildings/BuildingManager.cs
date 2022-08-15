@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,15 +35,32 @@ public class BuildingManager : MonoBehaviour
         else if (t.childCount > 0) Debug.LogException(new("Error: Building already exists in current location.")); // Cant build on top of other building
         else // Build Building
         {
-            Vector3 pos = new(t.position.x, t.position.y, 0.1f);
-            GameObject go = Instantiate(Resources.Load<GameObject>("Buildings/" + currentBuilding));
+            Vector3 pos = new(t.position.x, t.position.y, 0);
+            GameObject go = Instantiate(Resources.Load<GameObject>("Buildings/" + currentBuilding + "/Building"));
+            go.GetComponent<IBuilding>().Initialize();
+            go.tag = currentBuilding.ToString();
             go.transform.position = pos;
-            go.transform.parent = t;
+            go.transform.parent = transform;
             if (currentBuilding == Buildings.Base)
             {
                 baseBuilt = true;
                 currentBuilding = Buildings.Turret;
             }
         }
+    }
+
+    public Transform FindBuilding()
+    {
+        // For now just return the base
+        foreach(Transform child in transform)
+        {
+            return child;
+            //if (child.CompareTag("Base"))
+            //{
+            //    return child;
+            //}
+        }
+
+        return null;
     }
 }

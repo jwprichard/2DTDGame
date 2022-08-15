@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,8 +13,28 @@ public class EnemyManager : MonoBehaviour
 {
     public void CreateEnemy()
     {
-        GameObject gameObject = Instantiate(Resources.Load<GameObject>("Enemies/Enemy"));
-        gameObject.transform.position = new(6, 8, 0);
-        gameObject.transform.parent = transform;
+        GameObject go = Instantiate(Resources.Load<GameObject>("Enemies/Enemy"));
+        go.GetComponent<IEnemy>().Initialize();
+        go.transform.position = new(6, 8, 0);
+        go.transform.parent = transform;
+    }
+
+    public Tuple<bool, Transform> FindClosestEnemy(Vector2 pos)
+    {
+        Transform Enemy = null;
+        float distance = int.MaxValue;
+        foreach (Transform child in transform)
+        {
+            Vector2 childPos = new(child.position.x, child.position.y);
+            float newDistance = Vector2.Distance(childPos, pos);
+            if (newDistance < distance)
+            {
+                distance = newDistance;
+                Enemy = child;
+            }
+        }
+
+        if (Enemy != null) return new Tuple<bool, Transform>(true, Enemy);
+        else return new Tuple<bool, Transform>(false, Enemy);
     }
 }

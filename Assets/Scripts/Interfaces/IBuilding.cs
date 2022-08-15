@@ -6,7 +6,14 @@ namespace Assets.Scripts.Interfaces
 {
     internal interface IBuilding
     {
-        public int Health { get; set; }
+        float Health { get; set; }
+        float MaxHealth { get; set; }
+        int Range { get; set; }
+        int Damage { get; set; }
+        float ActionRate { get; set; } 
 
+        void Initialize();
+
+        void TakeDamage(float damage);
     }
 }
