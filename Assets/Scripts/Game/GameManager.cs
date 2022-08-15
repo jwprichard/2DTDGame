@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
 
     public MapManager mapManager;
-    [SerializeField]
+    public BuildingManager buildingManager;
+    public EnemyManager enemyManager;
     public int[] size;
+    public static bool GameOver = false;
 
     // Called on the first frame of the game
     void Start()
@@ -20,6 +23,11 @@ public class GameManager : MonoBehaviour
         mapManager.InitializeMap(size[0], size[1]);
     }
 
+    public static void EndGame()
+    {
+        GameOver = true;
+    }
+
     private void OnGUI()
     {
         if (GUI.Button(new(10, 10, 100, 100), "Create Map"))
@@ -29,6 +37,19 @@ public class GameManager : MonoBehaviour
                 Destroy(child.gameObject);
             }
             Initialize();
+        }
+        if (GUI.Button(new(10, 120, 100, 100), "Spawn Enemy"))
+        {
+            enemyManager.CreateEnemy();
+        }
+        if (GameOver)
+        {
+            if (GUI.Button(new(500, 500, 300, 100), "Game Over, Restart?"))
+            {
+                //Restart Game
+                SceneManager.LoadScene("Game");
+                GameOver = false;
+            }
         }
     }
 }
