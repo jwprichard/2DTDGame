@@ -1,0 +1,23 @@
+{
+    "modules": 
+    [
+        {
+            "ID": 1,
+            "TileName": "Ground",
+            "Weight": 50,
+            "ValidNeighbours": [1, 2, 3]
+        },
+        {
+            "ID": 2,
+            "TileName": "Mountain",
+            "Weight": 3,
+            "ValidNeighbours": [1, 2]
+        },
+        {
+            "ID": 3,
+            "TileName": "Pit",
+            "Weight": 1,
+            "ValidNeighbours": [1, 3]
+        }
+    ]
+}
