@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
@@ -15,6 +16,9 @@ public class WaveFunctionCollapse
     private int height;
     int numRemaining;
     private bool Collapsed = false;
+
+    private Vector2 coord;
+    private Module m;
 
     public Dictionary<Vector2, Module> Initialize(int width, int height)
     {
@@ -43,6 +47,30 @@ public class WaveFunctionCollapse
         }
 
         return Map;
+    }
+
+    public void Init(int width, int height)
+    {
+        this.width = width;
+        this.height = height;
+        numRemaining = width * height;
+
+        ModuleList = LoadModules();
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                List<Module> mList = new(ModuleList);
+                ModuleDictionary.Add(new(i, j), mList);
+            }
+        }
+    }
+
+    public Tuple<Vector2, Module> Build()
+    {
+        Iterate();
+
+        return new Tuple<Vector2, Module>(coord, m);
     }
 
     private void Iterate()
@@ -97,7 +125,11 @@ public class WaveFunctionCollapse
         {
             Debug.LogError("Error: Given index does not exist in Module List");
         }
-        Module chosenModule = ModuleList[weightList[num]];
+        Module chosenModule = modules[weightList[num]];
+
+        coord = chosenCoord;
+        m = chosenModule;
+
         modules.Clear();
         modules.Add(chosenModule);
         numRemaining -= 1;
@@ -116,26 +148,24 @@ public class WaveFunctionCollapse
 
             for (int i = 0; i < 4; i++)
             {
-                List<int> ValidNeighbours = new();
+                List<string> socketList = new();
                 ModuleDictionary.TryGetValue(coord, out List<Module> modules);
                 foreach (Module module in modules)
                 {
-                    for (int k = 0; k < module.ValidNeighbours.Length; k++)
-                    {
-                        ValidNeighbours.Add(module.ValidNeighbours[k]);
-                    }
+                    socketList.Add(module.Sockets[i].SocketA);
                 }
 
                 Vector2 otherCoord = coord + GetDirection(i);
 
-                if (ModuleDictionary.TryGetValue(otherCoord, out List<Module> otherModules)){
+                if (ModuleDictionary.TryGetValue(otherCoord, out List<Module> otherModules))
+                {
                     if (otherModules.Count > 1)
                     {
-                        List<Module> newModuleList = new List<Module>();
+                        List<Module> newModuleList = new();
 
                         foreach (Module otherModule in otherModules)
                         {
-                            if (ValidNeighbours.Contains(otherModule.ID))
+                            if (socketList.Contains(otherModule.GetConnectingSocket(i)))
                             {
                                 newModuleList.Add(otherModule);
                             }
@@ -143,6 +173,10 @@ public class WaveFunctionCollapse
 
                         if (newModuleList.Count < otherModules.Count)
                         {
+                            if (newModuleList.Count < 1)
+                            {
+                                Debug.LogError("Error: No possible combinations for:");
+                            }
                             if (newModuleList.Count == 1)
                             {
                                 numRemaining -= 1;
@@ -166,9 +200,9 @@ public class WaveFunctionCollapse
             case 0:
                 return new Vector2(1, 0); //North
             case 1:
-                return new Vector2(-1, 0); //South
+                return new Vector2(0, 1); //East
             case 2:
-                return new Vector2(0, 1); //Easy
+                return new Vector2(-1, 0); //South
             case 3:
                 return new Vector2(0, -1); //West
             default:
@@ -207,6 +241,10 @@ public class WaveFunctionCollapse
     {
         string jsonString = File.ReadAllText("D:\\Game Design\\2DTDGame\\Assets\\Resources\\Data\\Modules.json");
         ModuleList mList = JsonConvert.DeserializeObject<ModuleList>(jsonString);
+        foreach (Module m in mList.Modules)
+        {
+            m.CreateSockets();
+        }
         return mList.Modules;
     }
 }

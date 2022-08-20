@@ -1,26 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.HelperFunctions;
 
 public class Tile : MonoBehaviour
 {
     public Vector2 Position { get; private set; }
-    public Sprite sprite;
+    public Sprite[] sprites;
+    public float Rotation;
+    public Module Module { get; private set; }
 
-    public void Initialize(Vector2 position, string name)
+    public void Initialize(Vector2 position, Module module)
     {
-        gameObject.name = name.ToLower();
+        Module = module;
+        gameObject.name = Module.TileName.ToLower();
         Position = position;
         gameObject.transform.position = position;
-        CreateSR(name);
-        gameObject.AddComponent<BoxCollider2D>();//.isTrigger = true;
+        CreateSR();
+        Rotation = module.Rotation;
+        gameObject.transform.rotation = Quaternion.Euler(0, 0, module.Rotation);
+        gameObject.AddComponent<BoxCollider2D>();
     }
 
-    public void CreateSR(string name)
+    public void CreateSR()
     {
         SpriteRenderer spriteR = gameObject.AddComponent<SpriteRenderer>();
-        sprite = Resources.Load<Sprite>("Sprites/" + name);
-        spriteR.sprite = sprite;
+        sprites = Resources.LoadAll<Sprite>("Sprites\\Terrain\\" + Module.TileName);
+        int rnd = HelperFunctions.RandomNumber(0, sprites.Length);
+        spriteR.sprite = sprites[rnd];
         spriteR.sortingLayerName = "Background";
     }
+
+    //public void Rotate()
+    //{
+    //    if (Module.Rotation != "C" || Module.Rotation != "0")
+    //    {
+    //        if (Module.Rotation == "1")
+    //        {
+    //            gameObject.transform.rotation = Quaternion.Euler(0, 0, 90);
+    //        }
+    //        else if (Module.Rotation == "2")
+    //        {
+    //            gameObject.transform.rotation = Quaternion.Euler(0, 0, 180);
+    //        }
+    //        else if (Module.Rotation == "3")
+    //        {
+    //            gameObject.transform.rotation = Quaternion.Euler(0, 0, 270);
+    //        }
+    //    }
+    //}
 }

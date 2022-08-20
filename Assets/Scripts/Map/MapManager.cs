@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,30 +6,32 @@ using UnityEngine;
 public class MapManager : MonoBehaviour
 {
     public Dictionary<Vector2, Module> Map;
+    WaveFunctionCollapse wfc;
     public void InitializeMap(int x, int y)
     {
-        WaveFunctionCollapse wfc = new ();
+        wfc = new ();
         Map = wfc.Initialize(x, y);
 
         foreach(KeyValuePair<Vector2, Module> entry in Map)
         {
             GameObject tile = new();
-            tile.AddComponent<Tile>().Initialize(entry.Key, entry.Value.TileName);
+            tile.AddComponent<Tile>().Initialize(entry.Key, entry.Value);
             tile.transform.parent = transform;
-            //mapArray[i,j] = tile;
+        }
+    }
+
+    public void CreateTile(int x, int y)
+    {
+        if (wfc == null)
+        {
+            wfc= new WaveFunctionCollapse();
+            wfc.Init(x, y);
         }
 
-        //mapArray = new GameObject[x,y];
+        Tuple<Vector2, Module> t = wfc.Build();
 
-        //for (int i = 0; i < mapArray.GetLength(0); i++)
-        //{
-        //    for(int j = 0; j < mapArray.GetLength(1); j++)
-        //    {
-        //        GameObject tile = new();
-        //        tile.AddComponent<Tile>().Initialize(new(i,j), "Ground");
-        //        tile.transform.parent = transform;
-        //        //mapArray[i,j] = tile;
-        //    }
-        //}
+        GameObject tile = new();
+        tile.AddComponent<Tile>().Initialize(t.Item1, t.Item2);
+        tile.transform.parent = transform;
     }
 }

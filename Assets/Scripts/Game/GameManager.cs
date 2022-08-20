@@ -38,7 +38,11 @@ public class GameManager : MonoBehaviour
             }
             Initialize();
         }
-        if (GUI.Button(new(10, 120, 100, 100), "Spawn Enemy"))
+        if (GUI.Button(new(10, 120, 100, 100), "Build 1"))
+        {
+            mapManager.CreateTile(size[0], size[1]);
+        }
+        if (GUI.Button(new(10, 230, 100, 100), "Spawn Enemy"))
         {
             enemyManager.CreateEnemy();
         }
