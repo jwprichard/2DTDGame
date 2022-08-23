@@ -20,7 +20,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public void CreateTile(int x, int y)
+    public void BuildSequentially(int x, int y)
     {
         if (wfc == null)
         {
@@ -28,10 +28,32 @@ public class MapManager : MonoBehaviour
             wfc.Init(x, y);
         }
 
+        foreach (KeyValuePair<Vector2, List<Module>> pair in wfc.ModuleDictionary)
+        {
+            Transform wfcTile = transform.Find(pair.Key.ToString());
+            if (wfcTile != null)
+            {
+                if (wfcTile.TryGetComponent(out WFCTile anotherTile))
+                {
+                    anotherTile.UpdateMList(pair.Value);
+                }
+            }
+            else
+            {
+                GameObject wTile = new();
+                wTile.AddComponent<WFCTile>().Initialize(pair.Key, pair.Value);
+                wTile.transform.parent = transform;
+            }
+        }
+
         Tuple<Vector2, Module> t = wfc.Build();
+
+        Transform cTile = transform.Find(t.Item1.ToString());
+        Destroy(cTile.gameObject);
 
         GameObject tile = new();
         tile.AddComponent<Tile>().Initialize(t.Item1, t.Item2);
         tile.transform.parent = transform;
+        tile.name = t.Item1.ToString();
     }
 }
