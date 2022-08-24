@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Interfaces;
+using Assets.Scripts.HelperFunctions;
 
-public class Bullet : MonoBehaviour, IProjectile
+public class Projectile : MonoBehaviour, IProjectile
 {
     public float Speed { get; set; }
-
     public Vector2 Target { get; set; }
     public void Initialize(int speed, Vector2 target)
     {
@@ -22,11 +20,10 @@ public class Bullet : MonoBehaviour, IProjectile
     private void Move()
     {
         float step = Speed * Time.deltaTime;
-        transform.position = Vector2.MoveTowards(transform.position, Target, step);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("here");
+        transform.SetPositionAndRotation(Vector2.MoveTowards(transform.position, Target, step), HelperFunctions.LookAt(transform.position, Target));
+        if (Vector2.Distance(Target, transform.position) < 0.001f)
+        {
+            Destroy(gameObject);
+        }
     }
 }

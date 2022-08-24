@@ -13,7 +13,7 @@ public class EnemyManager : MonoBehaviour
 {
     public void CreateEnemy()
     {
-        GameObject go = Instantiate(Resources.Load<GameObject>("Enemies/Enemy"));
+        GameObject go = Instantiate(Resources.Load<GameObject>("Enemies/Eye/Eye"));
         go.GetComponent<IEnemy>().Initialize();
         go.transform.position = new(6, 8, 0);
         go.transform.parent = transform;

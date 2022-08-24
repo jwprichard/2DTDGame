@@ -24,17 +24,12 @@ public class Turret : MonoBehaviour, IBuilding
         ActionRate = 1;
         Damage = 50;
         CreateGameObjects();
-        CreateTimer();
+        //CreateTimer();
     }
 
     public void Update()
     {
-        if (!timer.IsRunning)
-        {
-            CreateTimer();
-            Fire();
-        }
-        SetTarget();
+        Fire();
         CheckStats();
     }
 
@@ -59,26 +54,27 @@ public class Turret : MonoBehaviour, IBuilding
 
     private void Fire()
     {
-        if (Target == null) { }
+        if (timer == null) CreateTimer();
+        else if (timer.IsRunning) { }
         else
         {
-            GameObject go = Instantiate(Resources.Load<GameObject>("Buildings/Turret/Bullet"));
-            go.transform.parent = transform;
-            go.transform.position = FirePoint.position;
-            go.GetComponent<IProjectile>().Initialize(10, new Vector2(Target.position.x, Target.position.y));
-        }
-    }
-
-    private void SetTarget()
-    {
-        if (Target == null)
-        {
-            EnemyManager enemyManager = GameObject.Find("EnemyManager").GetComponent<EnemyManager>();
-            Tuple<bool, Transform> t = enemyManager.FindClosestEnemy(new Vector2(transform.position.x, transform.position.x));
-            if (t.Item1 == true)
+            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, Range, 1 << 7);
+            if (hits.Length > 0)
             {
-                Target = t.Item2;
+                float distance = Vector2.Distance(new(int.MaxValue, int.MaxValue), transform.position);
+                foreach(Collider2D hit in hits)
+                {
+                    if (Vector2.Distance(hit.transform.position, transform.position) < distance)
+                    {
+                        Target = hit.transform;
+                    }
+                }
+                GameObject go = Instantiate(Resources.Load<GameObject>("Buildings/Turret/Bullet"));
+                go.transform.parent = transform;
+                go.transform.position = FirePoint.position;
+                go.GetComponent<IProjectile>().Initialize(10, new Vector2(Target.position.x, Target.position.y));
             }
+            CreateTimer();
         }
     }
 
