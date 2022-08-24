@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public MapManager mapManager;
     public BuildingManager buildingManager;
     public EnemyManager enemyManager;
+    public int Seed;
     public int[] size;
     public static bool GameOver = false;
 
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     private void Initialize()
     {
-        mapManager.InitializeMap(size[0], size[1]);
+        mapManager.InitializeMap(size[0], size[1], Seed);
     }
 
     public static void EndGame()

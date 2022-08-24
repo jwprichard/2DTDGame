@@ -76,7 +76,7 @@ public class Tile : MonoBehaviour
         gameObject.transform.position = position;
         CreateSR();
         Rotation = module.Rotation;
-        if (Module.TileName == "Pit_S" || Module.TileName == "Mountain_S")
+        if (Module.SpriteName == "Pit_S" || Module.SpriteName == "Mountain_S")
         {
             Rotation += 90;
         }
@@ -87,7 +87,7 @@ public class Tile : MonoBehaviour
     public void CreateSR()
     {
         SpriteRenderer spriteR = gameObject.AddComponent<SpriteRenderer>();
-        sprites = Resources.LoadAll<Sprite>("Sprites\\Terrain\\" + Module.TileName);
+        sprites = Resources.LoadAll<Sprite>("Sprites\\Terrain\\" + Module.SpriteName);
         int rnd = HelperFunctions.RandomNumber(0, sprites.Length);
         spriteR.sprite = sprites[rnd];
         spriteR.sortingLayerName = "Background";

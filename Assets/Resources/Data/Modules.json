@@ -2,112 +2,190 @@
     "modules": 
     [
         {
-            "TileName": "Ground_M",
-            "Rotation": 0
+            "SpriteName": "Ground_M",
+            "Rotation": 0,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Mountain_M",
-            "Rotation": 0
+            "SpriteName": "Mountain_M",
+            "Rotation": 0,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Mountain_C_1",
-            "Rotation": 0
+            "SpriteName": "Mountain_C_1",
+            "Rotation": 0,
+            "Constraint_From": [
+                "Mountain_C_1_270",
+                "Mountain_C_1_90"
+            ],
+            "Constraint_To": []
         },
         {
-            "TileName": "Mountain_C_1",
-            "Rotation": 90
+            "SpriteName": "Mountain_C_1",
+            "Rotation": 90,
+            "Constraint_From": [
+                "Mountain_C_1_0",
+                "Mountain_C_1_180"
+            ],
+            "Constraint_To": []
         },
         {
-            "TileName": "Mountain_C_1",
-            "Rotation": 180
+            "SpriteName": "Mountain_C_1",
+            "Rotation": 180,
+            "Constraint_From": [
+                "Mountain_C_1_90",
+                "Mountain_C_1_270"
+            ],
+            "Constraint_To": []
         },
         {
-            "TileName": "Mountain_C_1",
-            "Rotation": 270
+            "SpriteName": "Mountain_C_1",
+            "Rotation": 270,
+            "Constraint_From": [
+                "Mountain_C_1_0",
+                "Mountain_C_1_180"
+            ],
+            "Constraint_To": []
         },
         {
-            "TileName": "Mountain_C_2",
-            "Rotation": 0
+            "SpriteName": "Mountain_C_2",
+            "Rotation": 0,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Mountain_C_2",
-            "Rotation": 90
+            "SpriteName": "Mountain_C_2",
+            "Rotation": 90,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Mountain_C_2",
-            "Rotation": 180
+            "SpriteName": "Mountain_C_2",
+            "Rotation": 180,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Mountain_C_2",
-            "Rotation": 270
+            "SpriteName": "Mountain_C_2",
+            "Rotation": 270,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Mountain_S",
-            "Rotation": 0
+            "SpriteName": "Mountain_S",
+            "Rotation": 0,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Mountain_S",
-            "Rotation": 90
+            "SpriteName": "Mountain_S",
+            "Rotation": 90,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Mountain_S",
-            "Rotation": 180
+            "SpriteName": "Mountain_S",
+            "Rotation": 180,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Mountain_S",
-            "Rotation": 270
+            "SpriteName": "Mountain_S",
+            "Rotation": 270,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Pit_M",
-            "Rotation": 0
+            "SpriteName": "Pit_M",
+            "Rotation": 0,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Pit_C_1",
-            "Rotation": 0
+            "SpriteName": "Pit_C_1",
+            "Rotation": 0,
+            "Constraint_From": [
+                "Pit_C_1_270",
+                "Pit_C_1_90"
+            ],
+            "Constraint_To": []
         },
         {
-            "TileName": "Pit_C_1",
-            "Rotation": 90
+            "SpriteName": "Pit_C_1",
+            "Rotation": 90,
+            "Constraint_From": [
+                "Pit_C_1_0",
+                "Pit_C_1_180"
+            ],
+            "Constraint_To": []
         },
         {
-            "TileName": "Pit_C_1",
-            "Rotation": 180
+            "SpriteName": "Pit_C_1",
+            "Rotation": 180,
+            "Constraint_From": [
+                "Pit_C_1_90",
+                "Pit_C_1_270"
+            ],
+            "Constraint_To": []
         },
         {
-            "TileName": "Pit_C_1",
-            "Rotation": 270
+            "SpriteName": "Pit_C_1",
+            "Rotation": 270,
+            "Constraint_From": [
+                "Pit_C_1_180",
+                "Pit_C_1_0"
+            ],
+            "Constraint_To": []
         },
         {
-            "TileName": "Pit_C_2",
-            "Rotation": 0
+            "SpriteName": "Pit_C_2",
+            "Rotation": 0,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Pit_C_2",
-            "Rotation": 90
+            "SpriteName": "Pit_C_2",
+            "Rotation": 90,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Pit_C_2",
-            "Rotation": 180
+            "SpriteName": "Pit_C_2",
+            "Rotation": 180,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Pit_C_2",
-            "Rotation": 270
+            "SpriteName": "Pit_C_2",
+            "Rotation": 270,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Pit_S",
-            "Rotation": 0
+            "SpriteName": "Pit_S",
+            "Rotation": 0,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Pit_S",
-            "Rotation": 90
+            "SpriteName": "Pit_S",
+            "Rotation": 90,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Pit_S",
-            "Rotation": 180
+            "SpriteName": "Pit_S",
+            "Rotation": 180,
+            "Constraint_From": [],
+            "Constraint_To": []
         },
         {
-            "TileName": "Pit_S",
-            "Rotation": 270
+            "SpriteName": "Pit_S",
+            "Rotation": 270,
+            "Constraint_From": [],
+            "Constraint_To": []
         }
     ]
 }

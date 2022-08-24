@@ -374,7 +374,8 @@ MonoBehaviour:
   mapManager: {fileID: 450396768}
   buildingManager: {fileID: 1983442716}
   enemyManager: {fileID: 2017624756}
-  size: 0a0000000a000000
+  Seed: 6
+  size: 2800000014000000
 --- !u!4 &1325138923
 Transform:
   m_ObjectHideFlags: 0

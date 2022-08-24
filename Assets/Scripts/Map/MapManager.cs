@@ -7,10 +7,21 @@ public class MapManager : MonoBehaviour
 {
     public Dictionary<Vector2, Module> Map;
     WaveFunctionCollapse wfc;
-    public void InitializeMap(int x, int y)
+    public void InitializeMap(int x, int y, int seed)
     {
         wfc = new ();
-        Map = wfc.Initialize(x, y);
+        Map = wfc.Initialize(x, y, seed);
+
+        int rebuilt = 0;
+
+        while (wfc.ReBuild)
+        {
+            rebuilt++;
+            if (rebuilt == 6) break;
+            Map = wfc.Initialize(x, y, seed++);
+        }
+
+        Debug.Log(rebuilt);
 
         foreach(KeyValuePair<Vector2, Module> entry in Map)
         {
