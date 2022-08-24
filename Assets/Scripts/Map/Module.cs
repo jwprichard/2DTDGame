@@ -36,18 +36,26 @@ public class Socket
 public class Module
 {
     public string TileName;
+    public string SpriteName;
     public float Rotation;
     public int Weight;
+    public string[] Constraint_To;
+    public string[] Constraint_From;
     public Socket[] Sockets = new Socket[4];
     private Texture2D texture;
 
-    public void CreateSockets()
+    public void Initialize()
     {
 
-        Weights weight = (Weights)Enum.Parse(typeof(Weights), TileName);
+        Weights weight = (Weights)Enum.Parse(typeof(Weights), SpriteName);
         Weight = (int)weight;
+        TileName = SpriteName + "_" + Rotation;
+        CreateSockets();
+    }
 
-        texture = Resources.LoadAll<Texture2D>("Sprites\\Terrain\\" + TileName)[0];
+    public void CreateSockets()
+    {
+        texture = Resources.LoadAll<Texture2D>("Sprites\\Terrain\\" + SpriteName)[0];
         string p1 = ColorUtility.ToHtmlStringRGBA(texture.GetPixel(0, texture.height));
         string p2 = ColorUtility.ToHtmlStringRGBA(texture.GetPixel(texture.width, texture.height));
         string p3 = ColorUtility.ToHtmlStringRGBA(texture.GetPixel(texture.width, 0));

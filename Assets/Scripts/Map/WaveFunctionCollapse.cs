@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class WaveFunctionCollapse
 {
-    public Dictionary<Vector2, List<Module>> ModuleDictionary = new ();
+    public Dictionary<Vector2, List<Module>> ModuleDictionary;
     private Dictionary<Vector2, Module> Map = new();
     List<Module> ModuleList = new ();
 
@@ -16,15 +16,28 @@ public class WaveFunctionCollapse
     private int height;
     int numRemaining;
     private bool Collapsed = false;
+    public bool ReBuild { get; private set; } = false;
 
     private Vector2 coord;
     private Module m;
+    public int Seed { get; private set; }
 
-    public Dictionary<Vector2, Module> Initialize(int width, int height)
+    public Dictionary<Vector2, Module> Initialize(int width, int height , int seed)
     {
         this.width = width;
         this.height = height;
+        Seed = seed;
         numRemaining = width * height;
+        ModuleDictionary = new();
+        ReBuild = false;
+
+        if (Seed == 0)
+        {
+            System.Random r = new ();
+            Seed = r.Next();
+        }
+
+        UnityEngine.Random.InitState(Seed);
 
         ModuleList = LoadModules();
         for (int i = 0; i < width; i++)
@@ -38,6 +51,10 @@ public class WaveFunctionCollapse
 
         while (!Collapsed)
         {
+            if (ReBuild)
+            {
+                return null;
+            }
             Iterate();
         }
 
@@ -91,7 +108,6 @@ public class WaveFunctionCollapse
     private Vector2 Collapse(List<Vector2> coords)
     {
         Vector2 chosenCoord;
-        System.Random rnd = new();
         int num;
 
         if (coords.Count == 1)
@@ -100,7 +116,7 @@ public class WaveFunctionCollapse
         }
         else
         {
-            num = rnd.Next(coords.Count);
+            num = UnityEngine.Random.Range(0, coords.Count - 1);
             chosenCoord = coords[num];
         }
 
@@ -116,7 +132,7 @@ public class WaveFunctionCollapse
             }
         }
 
-        num = rnd.Next(weightList.Count);
+        num = UnityEngine.Random.Range(0, weightList.Count - 1);
         if (num > weightList.Count)
         {
             Debug.LogError("Error: num is greater than weightlist");
@@ -169,13 +185,26 @@ public class WaveFunctionCollapse
                             {
                                 newModuleList.Add(otherModule);
                             }
+
+                            if (modules.Count == 1)
+                            {
+                                foreach (string s in modules[0].Constraint_From)
+                                {
+                                    if (otherModule.TileName == s)
+                                    {
+                                        newModuleList.Remove(otherModule);
+                                    }
+                                }
+                            }
                         }
 
                         if (newModuleList.Count < otherModules.Count)
                         {
                             if (newModuleList.Count < 1)
                             {
-                                Debug.LogError("Error: No possible combinations for:");
+                                Debug.LogError("Error: Unsolvable");
+                                ReBuild = true;
+                                return;
                             }
                             if (newModuleList.Count == 1)
                             {
@@ -243,7 +272,7 @@ public class WaveFunctionCollapse
         ModuleList mList = JsonConvert.DeserializeObject<ModuleList>(jsonString);
         foreach (Module m in mList.Modules)
         {
-            m.CreateSockets();
+            m.Initialize();
         }
         return mList.Modules;
     }
