@@ -1,23 +1,37 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    private GameObject[,] mapArray;
+    public Dictionary<Vector2, Module> Map;
+    WaveFunctionCollapse wfc;
     public void InitializeMap(int x, int y)
     {
-        mapArray = new GameObject[x,y];
+        wfc = new ();
+        Map = wfc.Initialize(x, y);
 
-        for (int i = 0; i < mapArray.GetLength(0); i++)
+        foreach(KeyValuePair<Vector2, Module> entry in Map)
         {
-            for(int j = 0; j < mapArray.GetLength(1); j++)
-            {
-                GameObject tile = new();
-                tile.AddComponent<Tile>().CreateTile(new(i,j), "Tile " + i + "" + j);
-                tile.transform.parent = transform;
-                //mapArray[i,j] = tile;
-            }
+            GameObject tile = new();
+            tile.AddComponent<Tile>().Initialize(entry.Key, entry.Value);
+            tile.transform.parent = transform;
         }
+    }
+
+    public void CreateTile(int x, int y)
+    {
+        if (wfc == null)
+        {
+            wfc= new WaveFunctionCollapse();
+            wfc.Init(x, y);
+        }
+
+        Tuple<Vector2, Module> t = wfc.Build();
+
+        GameObject tile = new();
+        tile.AddComponent<Tile>().Initialize(t.Item1, t.Item2);
+        tile.transform.parent = transform;
     }
 }

@@ -1,0 +1,113 @@
+{
+    "modules": 
+    [
+        {
+            "TileName": "Ground_M",
+            "Rotation": 0
+        },
+        {
+            "TileName": "Mountain_M",
+            "Rotation": 0
+        },
+        {
+            "TileName": "Mountain_C_1",
+            "Rotation": 0
+        },
+        {
+            "TileName": "Mountain_C_1",
+            "Rotation": 90
+        },
+        {
+            "TileName": "Mountain_C_1",
+            "Rotation": 180
+        },
+        {
+            "TileName": "Mountain_C_1",
+            "Rotation": 270
+        },
+        {
+            "TileName": "Mountain_C_2",
+            "Rotation": 0
+        },
+        {
+            "TileName": "Mountain_C_2",
+            "Rotation": 90
+        },
+        {
+            "TileName": "Mountain_C_2",
+            "Rotation": 180
+        },
+        {
+            "TileName": "Mountain_C_2",
+            "Rotation": 270
+        },
+        {
+            "TileName": "Mountain_S",
+            "Rotation": 0
+        },
+        {
+            "TileName": "Mountain_S",
+            "Rotation": 90
+        },
+        {
+            "TileName": "Mountain_S",
+            "Rotation": 180
+        },
+        {
+            "TileName": "Mountain_S",
+            "Rotation": 270
+        },
+        {
+            "TileName": "Pit_M",
+            "Rotation": 0
+        },
+        {
+            "TileName": "Pit_C_1",
+            "Rotation": 0
+        },
+        {
+            "TileName": "Pit_C_1",
+            "Rotation": 90
+        },
+        {
+            "TileName": "Pit_C_1",
+            "Rotation": 180
+        },
+        {
+            "TileName": "Pit_C_1",
+            "Rotation": 270
+        },
+        {
+            "TileName": "Pit_C_2",
+            "Rotation": 0
+        },
+        {
+            "TileName": "Pit_C_2",
+            "Rotation": 90
+        },
+        {
+            "TileName": "Pit_C_2",
+            "Rotation": 180
+        },
+        {
+            "TileName": "Pit_C_2",
+            "Rotation": 270
+        },
+        {
+            "TileName": "Pit_S",
+            "Rotation": 0
+        },
+        {
+            "TileName": "Pit_S",
+            "Rotation": 90
+        },
+        {
+            "TileName": "Pit_S",
+            "Rotation": 180
+        },
+        {
+            "TileName": "Pit_S",
+            "Rotation": 270
+        }
+    ]
+}
