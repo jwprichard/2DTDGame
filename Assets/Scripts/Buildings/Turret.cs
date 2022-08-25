@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Interfaces;
-using System.Timers;
+using Assets.Scripts.HelperFunctions;
 
 public class Turret : MonoBehaviour, IBuilding
 {
@@ -24,12 +24,12 @@ public class Turret : MonoBehaviour, IBuilding
         ActionRate = 1;
         Damage = 50;
         CreateGameObjects();
-        //CreateTimer();
     }
 
     public void Update()
     {
         Fire();
+        LookAt();
         CheckStats();
     }
 
@@ -48,7 +48,6 @@ public class Turret : MonoBehaviour, IBuilding
 
     public void CreateTimer()
     {
-        //SimpleTimer.Callback callback = new(Action);
         timer = new (ActionRate * 1000);
     }
 
@@ -57,6 +56,15 @@ public class Turret : MonoBehaviour, IBuilding
         if(Health <= 0)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void LookAt()
+    {
+        if (Target == null) { }
+        else
+        {
+            transform.rotation = HelperFunctions.LookAt(transform.position, Target.position);
         }
     }
 

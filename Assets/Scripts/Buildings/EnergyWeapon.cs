@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Interfaces;
-using System.Timers;
+using Assets.Scripts.HelperFunctions;
 
 public class EnergyWeapon : MonoBehaviour, IBuilding
 {
@@ -29,6 +29,7 @@ public class EnergyWeapon : MonoBehaviour, IBuilding
     public void Update()
     {
         Fire();
+        LookAt();
         CheckStats();
     }
 
@@ -47,6 +48,15 @@ public class EnergyWeapon : MonoBehaviour, IBuilding
         if (Health <= 0)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void LookAt()
+    {
+        if (Target == null) { }
+        else
+        {
+            transform.rotation = HelperFunctions.LookAt(transform.position, Target.position);
         }
     }
 
