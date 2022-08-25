@@ -4,7 +4,7 @@ using UnityEngine;
 using Assets.Scripts.Interfaces;
 using Assets.Scripts.HelperFunctions;
 
-public class Enemy : MonoBehaviour, IEnemy
+public class Eye : MonoBehaviour, IEnemy
 {
     private SimpleTimer timer;
     public int Health { get; set; }
@@ -27,8 +27,8 @@ public class Enemy : MonoBehaviour, IEnemy
         Speed = 5;
         Damage = 50;
         AttackSpeed = 20;
+        Range = 2.5f;
         AttackPoint = GetComponentInChildren<Transform>();
-        //CreateTimer();
     }
 
     private void Update()
@@ -56,14 +56,13 @@ public class Enemy : MonoBehaviour, IEnemy
 
     public void CreateTimer()
     {
-        //SimpleTimer.Callback callback = new(Action);
-        timer = new(((float)Globals.AttackConstant/AttackSpeed) * 1000);
+        timer = new((float)Globals.AttackConstant / AttackSpeed * 1000);
     }
 
     private void Move()
     {
         if (Target == null) { }
-        else if (Vector2.Distance(transform.position, Target.position) < 0.5f)
+        else if (Vector2.Distance(transform.position, Target.position) < Range)
         {
             Attack();
         }
@@ -76,6 +75,7 @@ public class Enemy : MonoBehaviour, IEnemy
 
     private void HandleHit(GameObject other)
     {
+        Destroy(other);
         Health -= other.GetComponentInParent<IBuilding>().Damage;
     }
 
@@ -93,10 +93,13 @@ public class Enemy : MonoBehaviour, IEnemy
         else if (timer.IsRunning) { }
         else
         {
-            Collider2D hit = Physics2D.OverlapCircle(AttackPoint.position, 0.2f, 1<<6);
+            Collider2D hit = Physics2D.OverlapCircle(AttackPoint.position, Range, 1 << 6);
             if (hit != null)
             {
-                hit.GetComponent<IBuilding>().TakeDamage(Damage);                
+                GameObject go = Instantiate(Resources.Load<GameObject>("Enemies/Eye/Projectile"));
+                go.transform.parent = transform;
+                go.transform.position = AttackPoint.position;
+                go.GetComponent<IProjectile>().Initialize(10, new Vector2(Target.position.x, Target.position.y));
             }
             CreateTimer();
         }

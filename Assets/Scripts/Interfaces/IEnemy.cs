@@ -13,6 +13,7 @@ namespace Assets.Scripts.Interfaces
         public float Speed { get; set; }
         public float AttackSpeed {get; set; }
         public int Damage { get; set; }
+        public float Range { get; set; }
 
         void Initialize();
     }

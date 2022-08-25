@@ -5,7 +5,7 @@ using UnityEngine;
 using Assets.Scripts.Interfaces;
 using System.Timers;
 
-public class Turret : MonoBehaviour, IBuilding
+public class EnergyWeapon : MonoBehaviour, IBuilding
 {
     private SimpleTimer timer;
     public float Health { get; set; }
@@ -23,8 +23,7 @@ public class Turret : MonoBehaviour, IBuilding
         Range = 10;
         ActionRate = 1;
         Damage = 50;
-        CreateGameObjects();
-        //CreateTimer();
+        AssignObjects();
     }
 
     public void Update()
@@ -33,28 +32,19 @@ public class Turret : MonoBehaviour, IBuilding
         CheckStats();
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("EnemyProjectile"))
-        {
-            TakeDamage(collision.GetComponentInParent<IEnemy>().Damage);
-        }
-    }
-
-    private void CreateGameObjects()
+    private void AssignObjects()
     {
         FirePoint = GetComponentInChildren<Transform>();
     }
 
     public void CreateTimer()
     {
-        //SimpleTimer.Callback callback = new(Action);
-        timer = new (ActionRate * 1000);
+        timer = new(ActionRate * 1000);
     }
 
     private void CheckStats()
     {
-        if(Health <= 0)
+        if (Health <= 0)
         {
             Destroy(gameObject);
         }
@@ -70,14 +60,14 @@ public class Turret : MonoBehaviour, IBuilding
             if (hits.Length > 0)
             {
                 float distance = Vector2.Distance(new(int.MaxValue, int.MaxValue), transform.position);
-                foreach(Collider2D hit in hits)
+                foreach (Collider2D hit in hits)
                 {
                     if (Vector2.Distance(hit.transform.position, transform.position) < distance)
                     {
                         Target = hit.transform;
                     }
                 }
-                GameObject go = Instantiate(Resources.Load<GameObject>("Buildings/Turret/Bullet"));
+                GameObject go = Instantiate(Resources.Load<GameObject>("Buildings/EnergyWeapon/Projectile"));
                 go.transform.parent = transform;
                 go.transform.position = FirePoint.position;
                 go.GetComponent<IProjectile>().Initialize(10, new Vector2(Target.position.x, Target.position.y));

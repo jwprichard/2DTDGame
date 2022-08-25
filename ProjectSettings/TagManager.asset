@@ -9,6 +9,8 @@ TagManager:
   - Building
   - Base
   - Turret
+  - EnemyProjectile
+  - BuildingProjectile
   layers:
   - Default
   - TransparentFX

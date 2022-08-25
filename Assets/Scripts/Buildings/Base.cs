@@ -24,7 +24,13 @@ public class Base : MonoBehaviour, IBuilding
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("trigger");
+        HandleHit(collision.gameObject);
+    }
+
+    private void HandleHit(GameObject other)
+    {
+        Destroy(other);
+        Health -= other.GetComponentInParent<IEnemy>().Damage;
     }
 
     private void CheckStats()

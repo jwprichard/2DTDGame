@@ -6,35 +6,44 @@ using Assets.Scripts.Interfaces;
 
 enum Enemies
 {
-    Enemy
+    Enemy,
+    Eye,
 }
 
 public class EnemyManager : MonoBehaviour
 {
-    public void CreateEnemy()
+    private SimpleTimer timer;
+    public bool SpawnEnemies { get; set; } = false;
+    public void CreateEnemy(Vector2 pos)
     {
-        GameObject go = Instantiate(Resources.Load<GameObject>("Enemies/Enemy"));
+        Enemies[] e = (Enemies[])Enum.GetValues(typeof(Enemies));
+        int r = UnityEngine.Random.Range(0, e.Length);
+        GameObject go = Instantiate(Resources.Load<GameObject>("Enemies/" + e[r].ToString() + "/" + e[r].ToString()));
         go.GetComponent<IEnemy>().Initialize();
-        go.transform.position = new(6, 8, 0);
+        go.transform.position = new(pos.x, pos.y);
         go.transform.parent = transform;
     }
 
-    public Tuple<bool, Transform> FindClosestEnemy(Vector2 pos)
+    public void Update()
     {
-        Transform Enemy = null;
-        float distance = int.MaxValue;
-        foreach (Transform child in transform)
-        {
-            Vector2 childPos = new(child.position.x, child.position.y);
-            float newDistance = Vector2.Distance(childPos, pos);
-            if (newDistance < distance)
-            {
-                distance = newDistance;
-                Enemy = child;
-            }
-        }
-
-        if (Enemy != null) return new Tuple<bool, Transform>(true, Enemy);
-        else return new Tuple<bool, Transform>(false, Enemy);
+        Spawn();
     }
+
+    private void Spawn()
+    {
+        if (!SpawnEnemies) { }
+        else if (timer == null) CreateTimer();
+        else if (timer.IsRunning) { }
+        else
+        {
+            CreateEnemy(new(UnityEngine.Random.Range(0, 20), UnityEngine.Random.Range(0, 20)));
+            CreateTimer();
+        }
+    }
+    public void CreateTimer()
+    {
+        //SimpleTimer.Callback callback = new(Action);
+        timer = new(1000);
+    }
+
 }
