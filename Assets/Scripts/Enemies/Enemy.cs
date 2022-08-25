@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour, IEnemy
         BuildingManager = GameObject.Find("BuildingManager").GetComponent<BuildingManager>();
         Health = 100;
         Speed = 5;
-        Damage = 20000;
+        Damage = 50;
         AttackSpeed = 20;
         AttackPoint = GetComponentInChildren<Transform>();
         //CreateTimer();
@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour, IEnemy
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Projectile"))
+        if (collision.CompareTag("BuildingProjectile"))
         {
             HandleHit(collision.gameObject);
         }
@@ -76,7 +76,6 @@ public class Enemy : MonoBehaviour, IEnemy
 
     private void HandleHit(GameObject other)
     {
-        Destroy(other);
         Health -= other.GetComponentInParent<IBuilding>().Damage;
     }
 
@@ -84,7 +83,7 @@ public class Enemy : MonoBehaviour, IEnemy
     {
         if (Target == null)
         {
-            Target = BuildingManager.FindBuilding();
+            Target = BuildingManager.FindClosestBuilding(transform.position);
         }
     }
 
@@ -94,7 +93,7 @@ public class Enemy : MonoBehaviour, IEnemy
         else if (timer.IsRunning) { }
         else
         {
-            Collider2D hit = Physics2D.OverlapCircle(AttackPoint.position, 0.1f, 1<<6);
+            Collider2D hit = Physics2D.OverlapCircle(AttackPoint.position, 0.2f, 1<<6);
             if (hit != null)
             {
                 hit.GetComponent<IBuilding>().TakeDamage(Damage);                

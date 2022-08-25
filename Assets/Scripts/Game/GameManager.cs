@@ -45,7 +45,8 @@ public class GameManager : MonoBehaviour
         }
         if (GUI.Button(new(10, 230, 100, 100), "Spawn Enemy"))
         {
-            enemyManager.CreateEnemy();
+            //enemyManager.CreateEnemy(new(2, 2));
+            enemyManager.SpawnEnemies = true;
         }
         if (GameOver)
         {

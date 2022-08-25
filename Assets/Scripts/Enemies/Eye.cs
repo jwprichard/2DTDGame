@@ -25,11 +25,10 @@ public class Eye : MonoBehaviour, IEnemy
         BuildingManager = GameObject.Find("BuildingManager").GetComponent<BuildingManager>();
         Health = 100;
         Speed = 5;
-        Damage = 20;
+        Damage = 50;
         AttackSpeed = 20;
         Range = 2.5f;
         AttackPoint = GetComponentInChildren<Transform>();
-        //CreateTimer();
     }
 
     private void Update()
@@ -57,8 +56,7 @@ public class Eye : MonoBehaviour, IEnemy
 
     public void CreateTimer()
     {
-        //SimpleTimer.Callback callback = new(Action);
-        timer = new(((float)Globals.AttackConstant / AttackSpeed) * 1000);
+        timer = new((float)Globals.AttackConstant / AttackSpeed * 1000);
     }
 
     private void Move()
@@ -85,7 +83,7 @@ public class Eye : MonoBehaviour, IEnemy
     {
         if (Target == null)
         {
-            Target = BuildingManager.FindBuilding();
+            Target = BuildingManager.FindClosestBuilding(transform.position);
         }
     }
 

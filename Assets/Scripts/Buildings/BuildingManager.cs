@@ -14,6 +14,7 @@ public enum Buildings
 {
     Base,
     Turret,
+    EnergyWeapon,
 }
 
 public class BuildingManager : MonoBehaviour
@@ -38,7 +39,8 @@ public class BuildingManager : MonoBehaviour
             Vector3 pos = new(t.position.x, t.position.y, 0);
             GameObject go = Instantiate(Resources.Load<GameObject>("Buildings/" + currentBuilding + "/Building"));
             go.GetComponent<IBuilding>().Initialize();
-            go.tag = currentBuilding.ToString();
+            //go.tag = currentBuilding.ToString();
+            go.name = currentBuilding.ToString().ToLower();
             go.transform.position = pos;
             go.transform.parent = transform;
             if (currentBuilding == Buildings.Base)
@@ -49,18 +51,21 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
-    public Transform FindBuilding()
+    public Transform FindClosestBuilding(Vector2 pos)
     {
+        float distance = int.MaxValue;
+        Transform t = null;
         // For now just return the base
         foreach(Transform child in transform)
         {
-            return child;
-            //if (child.CompareTag("Base"))
-            //{
-            //    return child;
-            //}
+            float newDistance = Vector2.Distance(pos, child.position);
+            if (newDistance < distance)
+            {
+                distance = newDistance;
+                t = child;
+            }
         }
 
-        return null;
+        return t;
     }
 }

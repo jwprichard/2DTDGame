@@ -17,6 +17,24 @@ public class Projectile : MonoBehaviour, IProjectile
         Move();
     }
 
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (gameObject.CompareTag("BuildingProjectile"))
+        {
+            if (collision.CompareTag("Enemy"))
+            {
+                Destroy(gameObject);
+            }
+        }
+        else if (gameObject.CompareTag("EnemyProjectile"))
+        {
+            if (collision.CompareTag("Building"))
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
     private void Move()
     {
         float step = Speed * Time.deltaTime;
