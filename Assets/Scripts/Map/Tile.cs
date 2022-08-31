@@ -82,6 +82,7 @@ public class Tile : MonoBehaviour
         }
         gameObject.transform.rotation = Quaternion.Euler(0, 0, Rotation);
         gameObject.AddComponent<BoxCollider2D>();
+        gameObject.layer = 12;
     }
 
     public void CreateSR()

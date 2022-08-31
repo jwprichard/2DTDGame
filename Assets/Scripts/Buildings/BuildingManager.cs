@@ -30,6 +30,11 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
+    public void SetCurrentBuilding(string building)
+    {
+        currentBuilding = (Buildings)Enum.Parse(typeof(Buildings), building);
+    }
+
     private void BuildBuilding(Transform t)
     {
         if (currentBuilding == Buildings.Base && baseBuilt) Debug.LogException(new("Error: Base Building already built.")); // Cant Build Base if one already exists

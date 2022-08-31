@@ -13,7 +13,9 @@ enum Enemies
 public class EnemyManager : MonoBehaviour
 {
     private SimpleTimer timer;
+    private int SpawnRate = 1000;
     public bool SpawnEnemies { get; set; } = false;
+    public UIManager uiManager;
     public void CreateEnemy(Vector2 pos)
     {
         Enemies[] e = (Enemies[])Enum.GetValues(typeof(Enemies));
@@ -27,6 +29,7 @@ public class EnemyManager : MonoBehaviour
     public void Update()
     {
         Spawn();
+        CheckDiffuculty();
     }
 
     private void Spawn()
@@ -42,8 +45,11 @@ public class EnemyManager : MonoBehaviour
     }
     public void CreateTimer()
     {
-        //SimpleTimer.Callback callback = new(Action);
-        timer = new(1000);
+        timer = new(SpawnRate);
+    }
+    private void CheckDiffuculty()
+    {
+        SpawnRate = 1000 / ((uiManager.Time / 60) + 1);
     }
 
 }
