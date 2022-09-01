@@ -2,15 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.Map;
+using Assets.Scripts.Utils;
 
 public class MapManager : MonoBehaviour
 {
-    public Dictionary<Vector2, Module> Map;
+    public Dictionary<Vector2, GameObject> Map;
     WaveFunctionCollapse wfc;
-    public void InitializeMap(int x, int y, int seed)
+    Grid<GameObject> grid;
+
+    public void InitializeMap(int width, int height, int seed)
     {
+        grid = new(width, height, 10f, new(20, 0), () => new GameObject());
         wfc = new ();
-        Map = wfc.Initialize(x, y, seed);
+        Dictionary<Vector2, Module> moduleMap = wfc.Initialize(x, y, seed);
 
         int rebuilt = 0;
 
@@ -18,16 +23,17 @@ public class MapManager : MonoBehaviour
         {
             rebuilt++;
             if (rebuilt == 6) break;
-            Map = wfc.Initialize(x, y, seed++);
+            moduleMap = wfc.Initialize(x, y, seed++);
         }
 
         Debug.Log(rebuilt);
 
-        foreach(KeyValuePair<Vector2, Module> entry in Map)
+        foreach(KeyValuePair<Vector2, Module> entry in moduleMap)
         {
             GameObject tile = new();
             tile.AddComponent<Tile>().Initialize(entry.Key, entry.Value);
             tile.transform.parent = transform;
+            Map.Add(entry.Key, tile);
         }
     }
 

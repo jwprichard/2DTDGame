@@ -1,6 +1,6 @@
 using UnityEngine;
 using Assets.Scripts.Interfaces;
-using Assets.Scripts.HelperFunctions;
+using Assets.Scripts.Utils;
 
 public class Projectile : MonoBehaviour, IProjectile
 {
@@ -38,7 +38,7 @@ public class Projectile : MonoBehaviour, IProjectile
     private void Move()
     {
         float step = Speed * Time.deltaTime;
-        transform.SetPositionAndRotation(Vector2.MoveTowards(transform.position, Target, step), HelperFunctions.LookAt(transform.position, Target));
+        transform.SetPositionAndRotation(Vector2.MoveTowards(transform.position, Target, step), UtilsClass.LookAt(transform.position, Target));
         if (Vector2.Distance(Target, transform.position) < 0.001f)
         {
             Destroy(gameObject);

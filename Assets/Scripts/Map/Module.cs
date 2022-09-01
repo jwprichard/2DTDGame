@@ -39,6 +39,7 @@ public class Module
     public string SpriteName;
     public float Rotation;
     public int Weight;
+    public bool Walkable;
     public string[] Constraint_To;
     public string[] Constraint_From;
     public Socket[] Sockets = new Socket[4];

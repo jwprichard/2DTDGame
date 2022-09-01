@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Scripts.HelperFunctions
+namespace Assets.Scripts.Utils
 {
-    public static class HelperFunctions
+    public static class UtilsClass
     {
         //Find the rotation of z to look from p1 to p2
         public static Quaternion LookAt(Vector3 p1, Vector3 p2)
@@ -136,6 +131,48 @@ namespace Assets.Scripts.HelperFunctions
             float distance = Mathf.Abs(pos1.x - pos2.x) + Mathf.Abs(pos1.y - pos2.y);
 
             return distance;
+        }
+
+        public static TextMesh CreateWorldText(string text, Transform parent = null, Vector3 localPosition = default, int fontSize = 40, Color color = default)
+        {
+            if (color == default) color = Color.white;
+            return CreateWorldText(text, parent, localPosition, fontSize, color);
+        }
+
+        public static TextMesh CreateWorldText(string text, Transform parent, Vector3 localPosition, int fontSize, Color color, TextAnchor textAnchor, TextAlignment textAlignment = TextAlignment.Left, int sortingOrder = 5000)
+        {
+            GameObject gameObject = new ("World_Text", typeof(TextMesh));
+            Transform transform = gameObject.transform;
+            transform.SetParent(parent, false);
+            transform.localPosition = localPosition;
+            TextMesh textMesh = gameObject.GetComponent<TextMesh>();
+            textMesh.anchor = textAnchor;
+            textMesh.alignment = textAlignment;
+            textMesh.text = text; ;
+            textMesh.fontSize = fontSize;
+            textMesh.color = color;
+            textMesh.GetComponent<MeshRenderer>().sortingOrder = sortingOrder;
+            return textMesh;
+        }
+
+        public static Vector3 GetMouseWorldPosition()
+        {
+            Vector3 v = GetMouseWorldPositionWithZ(Input.mousePosition, Camera.main);
+            v.z = 0;
+            return v;
+        }
+        public static Vector3 GetMouseWorldPositionWithZ()
+        {
+            return GetMouseWorldPositionWithZ(Input.mousePosition, Camera.main);
+        }
+        public static Vector3 GetMouseWorldPositionWithZ(Camera worldCamera)
+        {
+            return GetMouseWorldPositionWithZ(Input.mousePosition, worldCamera);
+        }
+        public static Vector3 GetMouseWorldPositionWithZ(Vector3 screenPosition, Camera worldCamera)
+        {
+            Vector3 worldPosition = worldCamera.ScreenToWorldPoint(screenPosition);
+            return worldPosition;
         }
     }
 }

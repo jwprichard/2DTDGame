@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Interfaces;
-using Assets.Scripts.HelperFunctions;
+using Assets.Scripts.Utils;
 
 public class Enemy : MonoBehaviour, IEnemy
 {
@@ -70,7 +70,7 @@ public class Enemy : MonoBehaviour, IEnemy
         else
         {
             //Move to and look at the target
-            transform.SetPositionAndRotation(Vector2.MoveTowards(transform.position, Target.position, Speed * Time.deltaTime), HelperFunctions.LookAt(transform.position, Target.position));
+            transform.SetPositionAndRotation(Vector2.MoveTowards(transform.position, Target.position, Speed * Time.deltaTime), UtilsClass.LookAt(transform.position, Target.position));
         }
     }
 

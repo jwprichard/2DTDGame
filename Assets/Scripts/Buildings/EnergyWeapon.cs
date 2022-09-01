@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Interfaces;
-using Assets.Scripts.HelperFunctions;
+using Assets.Scripts.Utils;
 
 public class EnergyWeapon : MonoBehaviour, IBuilding
 {
@@ -56,7 +56,7 @@ public class EnergyWeapon : MonoBehaviour, IBuilding
         if (Target == null) { }
         else
         {
-            transform.rotation = HelperFunctions.LookAt(transform.position, Target.position);
+            transform.rotation = UtilsClass.LookAt(transform.position, Target.position);
         }
     }
 
